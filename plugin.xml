@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="allinonesdk-ionic-corodova-ios-android"
+    version="1.0.0">
+    <name>All in one SDK</name>
+    <description>Paytm All in one sdk.</description>
+    <license></license>
+    <keywords></keywords>
+    <repo>https://github.com/paytm/paytm-allinonesdk-ionic-cordova.git</repo>
+    <issue>https://github.com/paytm/paytm-allinonesdk-ionic-cordova/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+      <js-module src="www/AllInOneSDK.js" name="AllInOneSDK">
+        <runs/>
+
+        <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
+        <clobbers target="AllInOneSDK" />
+      </js-module>
+      <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="AllInOneSDK">
+          <param name="android-package" value="com.paytm.AllInOneSDK" />
+        </feature>
+      </config-file>
+
+      <framework src="plugin.gradle" custom="true" type="gradleReference"/>
+      <source-file src="src/android/com/paytm/AllInOneSDK.java" target-dir="src/com/paytm/" />
+    </platform>
+    <!-- ios -->
+    <platform name="ios">
+      <js-module src="www/AllInOneSDK.js" name="AllInOneSDK">
+        <runs/>
+        <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
+        <clobbers target="AllInOneSDK" />
+      </js-module>
+      <config-file parent="/*" target="config.xml">
+        <feature name="AllInOneSDK">
+          <param name="ios-package" value="AllInOneSDK" />
+        </feature>
+      </config-file>
+      <source-file src="src/ios/AllInOneSDK.swift"/>
+      <framework src="src/ios/AppInvokeSDK.framework" embed="true" custom="true"/>
+      <hook type="after_plugin_add" src="src/ios/after_plugin_install.js" />
+      <hook type="after_platform_add" src="src/ios/after_plugin_install.js" />
+    </platform>
+</plugin>

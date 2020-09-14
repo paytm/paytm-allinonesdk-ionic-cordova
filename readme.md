@@ -1,0 +1,1 @@
+# Paytm AllinOne SDK ionic cordova

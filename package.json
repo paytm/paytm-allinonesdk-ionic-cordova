@@ -1,0 +1,24 @@
+{
+  "name": "AllInOneSDK",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "allinonesdk-ionic-corodova-ios-android",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "description": "A starting point for all in one sdk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paytm/paytm-allinonesdk-ionic-cordova.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "shivam gautam",
+  "license": "ISC",
+  "homepage": "https://github.com/paytm/paytm-allinonesdk-ionic-cordova#readme"
+}
