@@ -75,8 +75,54 @@ extension AllInOneSDK {
     }
 
     private func handleURL(url: URL) {
-        let urlString: String = url.absoluteString
-        returnWithResponse(message: "", response: urlString)
+        let dict = self.separateDeeplinkParamsIn(url: url.absoluteString, byRemovingParams: nil)
+        let jsonTxt = getStringFromDictionary(dictionary: dict)
+        returnWithResponse(message: "", response: jsonTxt ?? "")
+    }
+
+    private func separateDeeplinkParamsIn(url: String?, byRemovingParams rparams: [String]?)  -> [String: String] {
+        guard let url = url else {
+            return [String : String]()
+        }
+
+        var urlString = stringByRemovingDeeplinkSymbolsIn(url: url)
+
+        var paramList = [String : String]()
+        let pList = urlString.components(separatedBy: CharacterSet.init(charactersIn: "&?"))
+        for keyvaluePair in pList {
+            let info = keyvaluePair.components(separatedBy: CharacterSet.init(charactersIn: "="))
+            if let fst = info.first , let lst = info.last, info.count == 2 {
+                paramList[fst] = lst.removingPercentEncoding
+                if let rparams = rparams, rparams.contains(info.first!) {
+                    urlString = urlString.replacingOccurrences(of: keyvaluePair + "&", with: "")
+                    //Please dont interchage the order
+                    urlString = urlString.replacingOccurrences(of: keyvaluePair, with: "")
+                }
+            }
+            if info.first == "response" {
+                paramList["response"] = keyvaluePair.replacingOccurrences(of: "response=", with: "").removingPercentEncoding
+            }
+        }
+        if let trimmedURL = pList.first {
+            paramList["trimmedurl"] = trimmedURL
+        }
+        return paramList
+    }
+
+    private func stringByRemovingDeeplinkSymbolsIn(url: String) -> String {
+        var urlString = url.replacingOccurrences(of: "$", with: "&")
+
+        if let range = urlString.range(of: "&"), urlString.contains("?") == false{
+            urlString = urlString.replacingCharacters(in: range, with: "?")
+        }
+        return urlString
+    }
+
+    private func getStringFromDictionary(dictionary: [String: Any]) -> String? {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: dictionary,options: .prettyPrinted) else {
+            return nil
+        }
+        return (String(data: jsonData, encoding: .ascii) ?? "")
     }
 }
 
@@ -96,6 +142,7 @@ extension AllInOneSDK: AIDelegate {
             state = "pending"
         }
         responseDict["result"] = state
-        returnWithResponse(message: state, response: responseDict.description)
+        let jsonTxt = getStringFromDictionary(dictionary: responseDict)
+        returnWithResponse(message: state, response: jsonTxt ?? "")
     }
 }

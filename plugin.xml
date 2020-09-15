@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="allinonesdk-ionic-corodova-ios-android"
+    id="cordova-paytm-allinonesdk"
     version="1.0.0">
     <name>All in one SDK</name>
     <description>Paytm All in one sdk.</description>

@@ -2,7 +2,7 @@
   "name": "AllInOneSDK",
   "version": "1.0.0",
   "cordova": {
-    "id": "allinonesdk-ionic-corodova-ios-android",
+    "id": "cordova-paytm-allinonesdk",
     "platforms": [
       "android",
       "ios"
