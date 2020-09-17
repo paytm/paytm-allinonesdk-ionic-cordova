@@ -1,5 +1,5 @@
 {
-  "name": "AllInOneSDK",
+  "name": "cordova-paytm-allinonesdk",
   "version": "1.0.0",
   "cordova": {
     "id": "cordova-paytm-allinonesdk",
