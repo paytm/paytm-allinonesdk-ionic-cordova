@@ -70,7 +70,7 @@ extension AllInOneSDK {
         var data: [String: AnyObject] = [:]
         data["response"] = response as AnyObject
         data["message"] = message as AnyObject
-        if !isSuccess {
+        if isSuccess {
             let pluginResult = CDVPluginResult.init(status: .ok, messageAs: data)
             self.commandDelegate!.send(pluginResult, callbackId: callbackId);
         } else {
