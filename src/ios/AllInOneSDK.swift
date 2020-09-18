@@ -63,21 +63,26 @@ class AllInOneSDK: CDVPlugin {
 
 extension AllInOneSDK {
     private func returnWithError(msg: String) {
-        returnWithResponse(message: msg, response: "")
+        returnWithResponse(isSuccess: false, message: msg, response: "")
     }
 
-    private func returnWithResponse(message: String, response: String) {
+    private func returnWithResponse(isSuccess: Bool, message: String, response: String) {
         var data: [String: AnyObject] = [:]
         data["response"] = response as AnyObject
         data["message"] = message as AnyObject
-        let pluginResult = CDVPluginResult.init(status: .ok, messageAs: data)
-        self.commandDelegate!.send(pluginResult, callbackId: callbackId);
+        if !isSuccess {
+            let pluginResult = CDVPluginResult.init(status: .ok, messageAs: data)
+            self.commandDelegate!.send(pluginResult, callbackId: callbackId);
+        } else {
+            let pluginResult = CDVPluginResult.init(status: .error, messageAs: message)
+            self.commandDelegate!.send(pluginResult, callbackId: callbackId);
+        }
     }
 
     private func handleURL(url: URL) {
         let dict = self.separateDeeplinkParamsIn(url: url.absoluteString, byRemovingParams: nil)
         let jsonTxt = getStringFromDictionary(dictionary: dict)
-        returnWithResponse(message: "", response: jsonTxt ?? "")
+        returnWithResponse(isSuccess: true, message: "", response: jsonTxt ?? "")
     }
 
     private func separateDeeplinkParamsIn(url: String?, byRemovingParams rparams: [String]?)  -> [String: String] {
@@ -130,6 +135,8 @@ extension AllInOneSDK: AIDelegate {
     func openPaymentWebVC(_ controller: UIViewController?) {
         if let webController = controller {
             self.viewController.present(webController, animated: true, completion: nil)
+        } else {
+            returnWithResponse(isSuccess: false, message: "Error loading web page", response: "")
         }
     }
 
@@ -143,6 +150,6 @@ extension AllInOneSDK: AIDelegate {
         }
         responseDict["result"] = state
         let jsonTxt = getStringFromDictionary(dictionary: responseDict)
-        returnWithResponse(message: state, response: jsonTxt ?? "")
+        returnWithResponse(isSuccess: true, message: state, response: jsonTxt ?? "")
     }
 }

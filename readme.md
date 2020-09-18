@@ -10,7 +10,11 @@ This Cordova plugin helps you to be able to use the All-in-One SDK with your ion
 ## Installation:
 Add the plugin in your ionic application with the following command.
 
-`cordova plugin add https://github.com/paytm/paytm-allinonesdk-ionic-cordova.git`
+`ionic cordova plugin add cordova-paytm-allinonesdk`
+
+It is also possible to install the plugin via repo url directly
+
+`ionic cordova plugin add https://github.com/paytm/paytm-allinonesdk-ionic-cordova.git`
 
 ## Pre-requisite
 ### ionic-native wrapper
@@ -107,8 +111,10 @@ export interface PaymentIntentModel{
 For example: `cp -r ../ionic-native/dist/@ionic-native/plugins/all-in-one-sdk node_modules/@ionic-native`. Change the path of directories as per your project structure.
 
 ### For iOS:
-1. Add iOS platform to you application.
-```ionic cordova platform add ios```
+Add iOS platform to you application.
+
+`ionic cordova platform add ios`
+
 This will create an iOS platform for your application at the following path: 
  _applicationName/platforms/ios/applicationName.xcworkspace_
 
