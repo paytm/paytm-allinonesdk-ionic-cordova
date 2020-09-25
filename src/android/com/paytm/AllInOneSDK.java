@@ -117,8 +117,6 @@ public class AllInOneSDK extends CordovaPlugin {
               });
               if(isStaging){
                 transactionManager.setShowPaymentUrl("https://securegw-stage.paytm.in/theia/api/v1/showPaymentPage");              
-              }else{
-                transactionManager.setShowPaymentUrl("https://securegw.paytm.in/theia/api/v1/showPaymentPage");              
               }
               transactionManager.startTransaction(cordova.getActivity(), 100);
 
