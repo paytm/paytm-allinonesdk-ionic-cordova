@@ -156,7 +156,7 @@ let paymentIntent = { mid : "<Merchant ID>",
                       amount: "<Amount>", 
                       isStaging: "<Environment(true/false)>", 
                       callbackUrl: "<Callback URL>",
-                      restrictAppInvoke: <Restrict(true/false)> };
+                      restrictAppInvoke: "<Restrict(true/false)>" };
 this.allInOneSDK.startTransaction(paymentIntent).then(
 resp => {
   // The response recieved after the transaction is completed will be an object containing `message` and `response`. You can parse both and use them as required in your application
