@@ -50,6 +50,7 @@ public class AllInOneSDK extends CordovaPlugin {
               String txnToken = paymentIntent.getString("txnToken");
               String amount = paymentIntent.getString("amount");
               Boolean isStaging = paymentIntent.getBoolean("isStaging");
+              Boolean restrictAppInvoke = paymentIntent.getBoolean("restrictAppInvoke");
               String callbackuUrl = paymentIntent.getString("callbackUrl");
 
               PaytmOrder paytmOrder = new PaytmOrder(orderId, mid, txnToken, amount, callbackuUrl);
@@ -120,6 +121,12 @@ public class AllInOneSDK extends CordovaPlugin {
                 Log.d(TAG, "setting staging showPaymentUrl");
                 transactionManager.setShowPaymentUrl("https://securegw-stage.paytm.in/theia/api/v1/showPaymentPage");              
               }
+              Log.d(TAG, "restrictAppInvoke " + restrictAppInvoke);
+              if(restrictAppInvoke){
+                Log.d(TAG, "disabling app invoke");
+                transactionManager.setAppInvokeEnabled(false);
+              }
+              transactionManager.setCallingBridge("cordova");
               transactionManager.startTransaction(cordova.getActivity(), 100);
 
             }catch(Exception e){
