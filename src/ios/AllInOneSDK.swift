@@ -55,6 +55,14 @@ class AllInOneSDK: CDVPlugin {
                 isStaging = .staging
             }
         }
+        var restrictAppInvoke: Bool = false
+        if let restriction = requestDict["restrictAppInvoke"] as? Int {
+            if restriction != 0 {
+                restrictAppInvoke = true
+            }
+        }
+        self.appInvoke.setBridgeName(name: "cordova")
+        self.appInvoke.restrictAppInvokeFlow(restrict: restrictAppInvoke)
         self.commandDelegate.run {
             self.appInvoke.openPaytm(merchantId: merchantId, orderId: orderId, txnToken: txnToken, amount: amount, callbackUrl: callbackUrl, delegate: self, environment: isStaging)
         }
